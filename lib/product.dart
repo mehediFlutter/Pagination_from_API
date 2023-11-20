@@ -1,7 +1,12 @@
 class Product {
-  final int id;
-  final String slug;
-  String brand;
+  final int? id;
+  final String? slug;
+ final String? vehicleName;
+ final String? manufacture;
+ final String? condition;
+ final String? mileage;
+ final String? price;
+ final String? imageName;
       // productCode,
       // image,
       // unitPrice,
@@ -10,9 +15,14 @@ class Product {
       // quantity;
 
   Product( 
-      {required this.id,
-      required this.slug,
-      required this.brand,
+      { this.imageName,
+        this.id,
+       this.slug,
+       this.vehicleName,
+       this.manufacture,
+       this.condition,
+       this.mileage,
+       this.price,
       // required this.productCode,
       // required this.image,
       // required this.unitPrice,

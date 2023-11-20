@@ -2,38 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:scroll_controller/double_dehicle.dart';
-import 'package:scroll_controller/drawer_item_list.dart';
 import 'package:scroll_controller/product.dart';
 
-final GlobalKey widgetAKey = GlobalKey();
-
-void main() {
-  runApp(Scroll());
-}
-
-class Scroll extends StatefulWidget {
-  Scroll({super.key});
+class DoublVehicle extends StatefulWidget {
+  DoublVehicle({super.key});
 
   @override
-  State<Scroll> createState() => _ScrollState();
+  State<DoublVehicle> createState() => _DoublVehicleState();
 }
 
-class _ScrollState extends State<Scroll> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: ScrollPage());
-  }
-}
-
-class ScrollPage extends StatefulWidget {
-  ScrollPage({super.key});
-
-  @override
-  State<ScrollPage> createState() => _ScrollPageState();
-}
-
-class _ScrollPageState extends State<ScrollPage> {
+class _DoublVehicleState extends State<DoublVehicle> {
   // yVjInK9erYHC0iHW9ehY8c6J4y79fbNzCEIWtZvQ.jpg
   //https://pilotbazar.com/storage/vehicles/
   static String imagePath = "https://pilotbazar.com/storage/vehicles/";
@@ -155,89 +133,30 @@ class _ScrollPageState extends State<ScrollPage> {
       print(_scrollController.offset);
     });
     return Scaffold(
-      appBar: AppBar(
-        title: Text(page.toString()),
-      ),
-           endDrawer: Align(
-          alignment: Alignment.topRight,
-          child: SizedBox(
-            height: 230,
-            width: 200,
-            child: Drawer(
-              backgroundColor: Color(0xFF333333),
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Column(
-                      children: [
-                        DrawerItemList(
-                          text: 'DashBoard',
-                          icon: Icon(Icons.dashboard),
-                          onTapFunction: () {
-                          //   Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) => MarchentDashBoard()));
-                           },
-                        ),
-                        DrawerItemList(
-                          text: 'Item with whats app',
-                          icon: Icon(Icons.view_module),
-                          onTapFunction: () {
-                            // if (mounted) {
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) =>
-                            //               HomeWithWhatsAppIcon()));
-                            // }
-                          },
-                        ),
-                        DrawerItemList(
-                          text: 'View',
-                          icon: Icon(Icons.view_agenda_outlined),
-                          onTapFunction: () {
-                            if (mounted)
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          DoublVehicle()));
-                          },
-                        ),
-                        DrawerItemList(
-                          text: 'Logout',
-                          icon: Icon(Icons.logout),
-                          onTapFunction: () {},
-                        ),
-                      ],
-                    ),
-                  ),
-                  //ListTile(title: Text("item"),)
-                ],
-              ),
-            ),
-          ),
+        appBar: AppBar(
+          title: Text(page.toString()),
         ),
-      
-      body: ListView.separated(
-        
-        controller: _scrollController,
-        itemCount: products.length,
-        itemBuilder: (BuildContext context, index) {
-          return productList(index + j);
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(
-            height: 4,
-          );
-        },
-      ),
-    );
+        body:GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  //childAspectRatio: 1.0,
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 5.0,
+                ),
+          controller: _scrollController,
+          itemCount: products.length,
+          itemBuilder: (BuildContext context, index) {
+            return productList(index + j);
+          },
+          // separatorBuilder: (BuildContext context, int index) {
+          //   return Divider(
+          //     height: 4,
+          //   );
+          // },
+        ));
   }
 
-  productList(int x) {
+   productList(int x) {
     return ListTile(
       title: ClipRRect(
         borderRadius: BorderRadius.circular(10),
